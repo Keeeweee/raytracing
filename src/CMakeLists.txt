@@ -3,9 +3,9 @@ set(SOURCES
         )
 
 set(HEADERS
-        Vec3.cpp Vec3.h
+        Vec3.h
         PpmDrawer.cpp PpmDrawer.h
-        Color.cpp Color.h
+        Color.h
         Ray.cpp Ray.h)
 
 add_executable(raytracing ${SOURCES} ${HEADERS})
