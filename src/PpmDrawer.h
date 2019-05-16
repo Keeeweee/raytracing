@@ -15,5 +15,7 @@ public:
 
 	PpmDrawer(std::string &fileName, int nX, int nY);
 
+	PpmDrawer(std::string fileName, int nX, int nY);
+
 	void write(std::vector<Color> &points);
 };
