@@ -5,9 +5,14 @@
 class Color
 {
 public:
-	int e[3];
+	int e[3]{};
 
-	Color() = default;
+	Color()
+	{
+		e[0] = 0;
+		e[1] = 0;
+		e[2] = 0;
+	};
 
 	Color(int r, int g, int b)
 	{
@@ -39,18 +44,19 @@ public:
 	friend Color operator-(const Color &c1, const Color &c2);
 
 	friend Color operator*(float t, const Color &v);
+	friend Color operator/(const Color &v, int t);
 
 	friend std::ofstream &operator<<(std::ofstream &ofs, const Color &t);
 };
 
 int Color::r()
 {
-	return e[1];
+	return e[0];
 }
 
 int Color::g()
 {
-	return e[0];
+	return e[1];
 }
 
 int Color::b()
@@ -111,6 +117,11 @@ inline Color &Color::operator-=(const Color &color)
 inline Color operator*(float t, const Color &v)
 {
 	return Color(t * v.e[0], t * v.e[1], t * v.e[2]);
+}
+
+inline Color operator/(const Color &v, int t)
+{
+	return Color((int)(v.e[0] / t), (int)(v.e[1] / t), (int)(v.e[2] / t));
 }
 
 inline Color operator+(const Color &c1, const Color &c2)

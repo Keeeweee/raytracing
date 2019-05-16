@@ -7,16 +7,22 @@
 #include "float.h"
 #include "PpmDrawer.h"
 #include "Camera.h"
-
+#include <random>
 
 using namespace std;
 
 int main()
 {
 	string imagesPath = "../images/";
-	int n = 1;
+	int n = 5;
 	int nx = 200 * n;
 	int ny = 100 * n;
+	int ns = 100;
+
+	random_device rd;
+	mt19937 e2(rd());
+	uniform_real_distribution<> dist(0,1);
+
 
 
 
@@ -35,19 +41,31 @@ int main()
 	{
 		for (int i = 0; i < nx; i++)
 		{
-			float u = float(i) / float(nx);
-			float v = float(j) / float(ny);
-
+			Color color;
 			Camera camera;
+			int r = 0;
+			int g = 0;
+			int b = 0;
+			for (int s = 0; s < ns; ++s)
+			{
+				float u = float(i + dist(e2)) / float(nx);
+				float v = float(j + dist(e2)) / float(ny);
 
-			Ray r = camera.getRay(u, v);
+				Ray ray = camera.getRay(u, v);
 
-			Color color = r.getColor(world);
-			points.push_back(color);
+				color = ray.getColor(world);
+				r += color.r();
+				g += color.g();
+				b += color.b();
+			}
+
+			Color newColor((int)(r / ns), (int)(g / ns), (int)(b / ns));
+
+			points.push_back(newColor);
 		}
 	}
 
-	string fileName = "04_normal_gradient_sphere.ppm";
+	string fileName = "05_normal_gradient_sphere_with_AA.ppm";
 	PpmDrawer drawer = PpmDrawer(imagesPath + fileName, nx, ny);
 	drawer.write(points);
 }
