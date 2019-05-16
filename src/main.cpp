@@ -18,18 +18,13 @@ int main()
 
     for (int j = ny - 1; j >= 0; j--) {
         for (int i = 0; i < nx; i++) {
-            float r = float(i) / float(nx);
-            float g = float(j) / float(ny);
-            float b = 0.2;
-            int ir = int(255.99 * r);
-            int ig = int(255.99 * g);
-            int ib = int(255.99 * b);
+            Color col(float(i) / float(nx), float(j) / float(ny), 0.2);
 
-            points.emplace_back(ir, ig, ib);
+            points.push_back(col);
         }
     }
 
-    string fileName = "01_color_gradient.ppm";
+    string fileName = "02_color_gradient.ppm";
     PpmDrawer drawer = PpmDrawer(imagesPath + fileName, nx, ny);
     drawer.write(points);
 }
