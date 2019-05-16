@@ -24,6 +24,15 @@ int main()
 
 	vector<Color> points = vector<Color>();
 
+	ShapeList world;
+
+	Sphere sphere1(Vec3(0., 0., -1.), 0.5);
+	world.append(&sphere1);
+
+	Sphere sphere2(Vec3(0., -100.5, -1.), 100);
+	world.append(&sphere2);
+
+
 	for (int j = ny - 1; j >= 0; j--)
 	{
 		for (int i = 0; i < nx; i++)
@@ -33,12 +42,12 @@ int main()
 
 			Ray r(origin, lowerLeftCorner + u * horizontal + v * vertical);
 
-			Color color = r.getColor();
+			Color color = r.getColor(world);
 			points.push_back(color);
 		}
 	}
 
-	string fileName = "02_blue_gradient.ppm";
+	string fileName = "04_normal_gradient_sphere.ppm";
 	PpmDrawer drawer = PpmDrawer(imagesPath + fileName, nx, ny);
 	drawer.write(points);
 }
