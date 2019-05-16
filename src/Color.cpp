@@ -1,5 +1,6 @@
 #include "Color.h"
 #include <iostream>
+#include <fstream>
 
 Color::Color()
 {
@@ -53,6 +54,12 @@ inline std::ostream &operator<<(std::ostream &os, const Color &t)
 {
 	os << t.e[0] << " " << t.e[1] << " " << t.e[2];
 	return os;
+}
+
+std::ofstream &operator<<(std::ofstream &ofs, const Color &t)
+{
+	ofs << t[0] << " " <<  t[1] << " " << t[2];
+	return ofs;
 }
 
 inline Color &Color::operator+=(const Color &color)

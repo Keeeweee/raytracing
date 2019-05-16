@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fstream>
 
 class Color
 {
@@ -19,4 +20,7 @@ public:
 
 	inline Color& operator+=(const Color &color);
 	inline Color& operator-=(const Color &color);
+
+	friend std::ofstream &operator<<(std::ofstream &ofs, const Color &t);
 };
+
