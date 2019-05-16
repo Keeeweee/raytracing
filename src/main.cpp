@@ -9,8 +9,10 @@ using namespace std;
 
 int main()
 {
-    int nx = 200;
-    int ny = 100;
+	string imagesPath = "../images/";
+    int n = 1;
+	int nx = 200*n;
+    int ny = 100*n;
 
 	vector<Color> points = vector<Color>();
 
@@ -19,7 +21,7 @@ int main()
             float r = float(i) / float(nx);
             float g = float(j) / float(ny);
             float b = 0.2;
-            int ir = int(255.00 * r);
+            int ir = int(255.99 * r);
             int ig = int(255.99 * g);
             int ib = int(255.99 * b);
 
@@ -27,7 +29,7 @@ int main()
         }
     }
 
-    string fileName = "test.ppm";
-    PpmDrawer drawer = PpmDrawer(fileName, nx, ny);
+    string fileName = "01_color_gradient.ppm";
+    PpmDrawer drawer = PpmDrawer(imagesPath + fileName, nx, ny);
     drawer.write(points);
 }
