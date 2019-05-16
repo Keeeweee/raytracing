@@ -9,6 +9,7 @@ public:
 
 	Color();
 	Color(int r, int g, int b);
+	Color(double r, double g, double b);
 
 	inline int r();
 	inline int g();

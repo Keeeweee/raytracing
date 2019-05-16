@@ -14,14 +14,22 @@ Color::Color(int r, int g, int b)
 	e[2] = b;
 }
 
-int Color::g()
+
+Color::Color(double r, double g, double b)
 {
-	return e[0];
+	e[0] = int(255.99 * r);
+	e[1] = int(255.99 * g);
+	e[2] = int(255.99 * b);
 }
 
 int Color::r()
 {
 	return e[1];
+}
+
+int Color::g()
+{
+	return e[0];
 }
 
 int Color::b()
