@@ -6,6 +6,7 @@
 #include "shapes/ShapeList.h"
 #include "float.h"
 #include "PpmDrawer.h"
+#include "Camera.h"
 
 
 using namespace std;
@@ -17,10 +18,7 @@ int main()
 	int nx = 200 * n;
 	int ny = 100 * n;
 
-	Vec3 lowerLeftCorner(-2., -1., -1.);
-	Vec3 horizontal(4., 0., 0.);
-	Vec3 vertical(0., 2., 0.);
-	Vec3 origin(0., 0., 0.);
+
 
 	vector<Color> points = vector<Color>();
 
@@ -40,7 +38,9 @@ int main()
 			float u = float(i) / float(nx);
 			float v = float(j) / float(ny);
 
-			Ray r(origin, lowerLeftCorner + u * horizontal + v * vertical);
+			Camera camera;
+
+			Ray r = camera.getRay(u, v);
 
 			Color color = r.getColor(world);
 			points.push_back(color);
