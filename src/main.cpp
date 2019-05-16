@@ -1,10 +1,12 @@
-#include <iostream>
 #include <vector>
 
-#include "Vec3.h"
-#include "Color.h"
-#include "PpmDrawer.h"
+#include <iostream>
 #include "Ray.h"
+#include "shapes/Sphere.h"
+#include "shapes/ShapeList.h"
+#include "float.h"
+#include "PpmDrawer.h"
+
 
 using namespace std;
 

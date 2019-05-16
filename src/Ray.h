@@ -1,13 +1,17 @@
 #pragma once
 
+#include <cmath>
+#include <cfloat>
+
 #include "Vec3.h"
 #include "Color.h"
+#include "shapes/Shape.h"
 
 class Ray
 {
 public:
-	Vec3 origin;
-	Vec3 direction;
+	Vec3 origin{};
+	Vec3 direction{};
 
 	Ray() = default;
 
