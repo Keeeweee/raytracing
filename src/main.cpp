@@ -24,7 +24,7 @@ int main()
 	float n = pow((t / k), 1./3.);
 	n = n > 6 ? 6 : n;
 	n = n < 1 ? 1 : n;
-	n=1;
+	//n=1;
 	cout << "n = " << n << endl;
 	int nx = int(200 * n);
 	int ny = int(100 * n);
@@ -45,9 +45,9 @@ int main()
 
 	world.append(new Sphere(Vec3(0., -100.5, -1.), 100, new Lambertian(Vec3(0.8, 0.8, 0.0))));
 
-	world.append(new Sphere(Vec3(1., 0., -1.), 0.5, new Metal(Vec3(0.8, 0.6, 0.3))));
+	world.append(new Sphere(Vec3(1., 0., -1.), 0.5, new Metal(Vec3(0.8, 0.6, 0.3), 0.3)));
 
-	world.append(new Sphere(Vec3(-1., 0., -1.), 0.5, new Metal(Vec3(0.8, 0.8, 0.8))));
+	world.append(new Sphere(Vec3(-1., 0., -1.), 0.5, new Metal(Vec3(0.8, 0.8, 0.8), 1.0)));
 
 
 
@@ -80,7 +80,7 @@ int main()
 
 	cout << "Time: " << duration << "s" << endl;
 
-	string fileName = "07_lambertian_and_metal_spheres.ppm";
+	string fileName = "08_fuzzy_lambertian_and_metal_spheres.ppm";
 	PpmDrawer drawer = PpmDrawer(imagesPath + fileName, nx, ny);
 	drawer.write(points);
 }
