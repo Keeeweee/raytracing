@@ -31,7 +31,7 @@ int main()
 	world.append(new Sphere(Vec3(1., 0., -1.), 0.5, new Metal(Vec3(0.8, 0.6, 0.3), 0.3)));
 
 	world.append(new Sphere(Vec3(-1., 0., -1.), 0.5, new Dielectric(1.5)));
-	world.append(new Sphere(Vec3(-1., 0., -1.), -0.45, new Dielectric(5.5)));
+	world.append(new Sphere(Vec3(-1., 0., -1.), -0.45, new Dielectric(1.5)));
 
 	float t = 20.;
 	float k = 5.01083 * (world.list.size() - 1);
@@ -61,7 +61,11 @@ int main()
 		for (int i = 0; i < nx; i++)
 		{
 			Vec3 color(0., 0., 0);
-			Camera camera(90, float(nx) / float(ny));
+			Camera camera(  Vec3(-2., 2., 1.),
+							Vec3(0., 0., -1),
+							Vec3(0., 1., 0.),
+							90,
+							float(nx) / float(ny));
 			for (int s = 0; s < ns; ++s)
 			{
 				float u = float(i + random()) / float(nx);
