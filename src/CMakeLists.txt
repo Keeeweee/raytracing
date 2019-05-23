@@ -6,6 +6,7 @@ set(HEADERS
         Vec3.h
         PpmDrawer.cpp PpmDrawer.h
         Color.h
+        Utils.h
         Ray.h shapes/Shape.h shapes/Sphere.h shapes/ShapeList.h Camera.h)
 
 add_executable(raytracing ${SOURCES} ${HEADERS})
