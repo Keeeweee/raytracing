@@ -116,7 +116,7 @@ inline Color &Color::operator-=(const Color &color)
 
 inline Color operator*(float t, const Color &v)
 {
-	return Color(t * v.e[0], t * v.e[1], t * v.e[2]);
+	return Color((int)(t * v.e[0]), (int)(t * v.e[1]), (int)(t * v.e[2]));
 }
 
 inline Color operator/(const Color &v, int t)
