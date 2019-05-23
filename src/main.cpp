@@ -31,14 +31,14 @@ int main()
 	world.append(new Sphere(Vec3(1., 0., -1.), 0.5, new Metal(Vec3(0.8, 0.6, 0.3), 0.3)));
 
 	world.append(new Sphere(Vec3(-1., 0., -1.), 0.5, new Dielectric(1.5)));
-	world.append(new Sphere(Vec3(-1., 0., -1.), -0.45, new Dielectric(1.5)));
+	world.append(new Sphere(Vec3(-1., 0., -1.), -0.45, new Dielectric(5.5)));
 
-	float t = 120.;
+	float t = 20.;
 	float k = 5.01083 * (world.list.size() - 1);
 	float n = pow((t / k), 1./3.);
 	n = n > 6 ? 6 : n;
 	n = n < 1 ? 1 : n;
-	n=1;
+	n = 1.;
 	cout << "n = " << n << endl;
 	int nx = int(200 * n);
 	int ny = int(100 * n);
@@ -61,7 +61,7 @@ int main()
 		for (int i = 0; i < nx; i++)
 		{
 			Vec3 color(0., 0., 0);
-			Camera camera;
+			Camera camera(90, float(nx) / float(ny));
 			for (int s = 0; s < ns; ++s)
 			{
 				float u = float(i + random()) / float(nx);
