@@ -14,9 +14,9 @@ public:
 	};
 
 
-	virtual bool hit(const Ray& ray, float tMin, float tMax, hitRecord& hit) const
+	bool hit(const Ray& ray, float tMin, float tMax, hitRecord& hit) const override
 	{
-		hitRecord tempHit;
+		hitRecord tempHit{};
 		bool hitAnything = false;
 		double closestSoFar = tMax;
 

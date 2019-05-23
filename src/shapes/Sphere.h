@@ -16,7 +16,7 @@ public:
 		this->radius = radius;
 	}
 
-	virtual bool hit(const Ray& ray, float tMin, float tMax, hitRecord& hit) const
+	bool hit(const Ray& ray, float tMin, float tMax, hitRecord& hit) const override
 	{
 		Vec3 oc = ray.origin - center;
 		float a = dot(ray.direction, ray.direction);
