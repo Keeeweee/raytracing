@@ -20,7 +20,7 @@ PpmDrawer::PpmDrawer(std::string fileName, int nX, int nY)
 	this->nY = nY;
 }
 
-void PpmDrawer::write(std::vector<Color> &points)
+void PpmDrawer::write(std::vector<Vec3> &points)
 {
 	std::ofstream fOut;
 	fOut.open(this->fileName);
@@ -28,9 +28,9 @@ void PpmDrawer::write(std::vector<Color> &points)
 	fOut << "P3" << std::endl;
 	fOut << this->nX << " " << this->nY << std::endl;
 	fOut << 255 << std::endl;
-	for (Color &point : points)
+	for (Vec3 &point : points)
 	{
-		fOut << point << std::endl;
+		fOut << point.toColor(2) << std::endl;
 	}
 
 	fOut.close();

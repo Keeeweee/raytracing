@@ -61,6 +61,11 @@ public:
 	}
     inline void makeUnitVector();
 
+	inline Vec3 toColor(float gamma)
+	{
+		return Vec3((int)(255.99*pow(x(), 1./gamma)), (int)(255.99*pow(y(), 1./gamma)), (int)(255.99*pow(z(), 1./gamma)));
+	}
+
 	inline static Vec3 unitVector(const Vec3 &v2)
 	{
 		return v2.squaredLength() > 0. ? v2 / v2.length() : v2;

@@ -5,6 +5,7 @@
 
 #include "Vec3.h"
 #include "Color.h"
+#include "Utils.h"
 #include "shapes/Shape.h"
 
 class Ray
@@ -26,19 +27,21 @@ public:
 		return this->origin + t * direction;
 	}
 
-	inline Color getBlueGradient()
+	inline Vec3 getBlueGradient()
 	{
 		float t = 0.5 * this->direction.y() + 1.0;
 		float inverseT = 1. - t;
-		return Color(inverseT + t * 0.5, inverseT + t * 0.7, inverseT + t);
+		return Vec3(inverseT + t * 0.5, inverseT + t * 0.7, inverseT + t);
 	}
 
-	Color getColor(Shape &world)
+	Vec3 getColor(Shape &world)
 	{
-		hitRecord hit;
-		if (world.hit(*this, 0.0, FLT_MAX, hit))
+		hitRecord hit{};
+		if (world.hit(*this, 0.001, FLT_MAX, hit))
 		{
-			return Color(0.5 * (hit.normal.x() + 1.), 0.5 * (hit.normal.y() + 1.), 0.5 * (hit.normal.z() + 1.));
+			Vec3 target = hit.p + hit.normal + randomInUnitSphere();
+
+			return 0.5 * Ray(hit.p, target - hit.p).getColor(world);
 		}
 
 		return getBlueGradient();

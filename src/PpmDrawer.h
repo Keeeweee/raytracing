@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Color.h"
+#include "Vec3.h"
 
 class PpmDrawer
 {
@@ -17,5 +18,5 @@ public:
 
 	PpmDrawer(std::string fileName, int nX, int nY);
 
-	void write(std::vector<Color> &points);
+	void write(std::vector<Vec3> &points);
 };
