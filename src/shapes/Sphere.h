@@ -7,13 +7,15 @@ class Sphere: public Shape
 public:
 	Vec3 center{};
 	float radius{};
+	Material* materialPtr;
 
 	Sphere() = default;
 
-	Sphere(Vec3 center, float radius)
+	Sphere(Vec3 center, float radius, Material* materialPtr)
 	{
 		this->center = center;
 		this->radius = radius;
+		this->materialPtr = materialPtr;
 	}
 
 	bool hit(const Ray& ray, float tMin, float tMax, hitRecord& hit) const override
@@ -33,6 +35,7 @@ public:
 				hit.t = temp;
 				hit.p = ray.pointAtParameter(temp);
 				hit.normal = (hit.p - center) / radius;
+				hit.materialPtr = materialPtr;
 				return true;
 			}
 
@@ -42,6 +45,7 @@ public:
 				hit.t = temp;
 				hit.p = ray.pointAtParameter(temp);
 				hit.normal = (hit.p - center) / radius;
+				hit.materialPtr = materialPtr;
 				return true;
 			}
 		}

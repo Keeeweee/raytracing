@@ -7,6 +7,7 @@
 #include "Color.h"
 #include "Utils.h"
 #include "shapes/Shape.h"
+#include "materials/Material.h"
 
 class Ray
 {
@@ -34,14 +35,21 @@ public:
 		return Vec3(inverseT + t * 0.5, inverseT + t * 0.7, inverseT + t);
 	}
 
-	Vec3 getColor(Shape &world)
+	Vec3 getColor(Shape &world, int depth)
 	{
 		hitRecord hit{};
 		if (world.hit(*this, 0.001, FLT_MAX, hit))
 		{
-			Vec3 target = hit.p + hit.normal + randomInUnitSphere();
-
-			return 0.5 * Ray(hit.p, target - hit.p).getColor(world);
+			Ray scattered;
+			Vec3 attenuation;
+			if (depth < 50 && hit.materialPtr->scatter(*this, hit, attenuation, scattered))
+			{
+				return attenuation * scattered.getColor(world, depth+1);
+			}
+			else
+			{
+				return Vec3(0., 0., 0.);
+			}
 		}
 
 		return getBlueGradient();
