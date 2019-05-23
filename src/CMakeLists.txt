@@ -7,7 +7,7 @@ set(HEADERS
         PpmDrawer.cpp PpmDrawer.h
         Color.h
         Utils.h
-        Ray.h shapes/Shape.h shapes/Sphere.h shapes/ShapeList.h Camera.h materials/Material.h materials/Lambertian.h materials/Metal.h)
+        Ray.h shapes/Shape.h shapes/Sphere.h shapes/ShapeList.h Camera.h materials/Material.h materials/Lambertian.h materials/Metal.h materials/Dielectric.h)
 
 add_executable(raytracing ${SOURCES} ${HEADERS})
 
