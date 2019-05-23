@@ -6,18 +6,20 @@
 
 PpmDrawer::PpmDrawer() = default;
 
-PpmDrawer::PpmDrawer(std::string &fileName, int nX, int nY)
+PpmDrawer::PpmDrawer(std::string &fileName, int nX, int nY, float gamma = 2.)
 {
 	this->fileName = fileName;
 	this->nX = nX;
 	this->nY = nY;
+	this->gamma = gamma;
 }
 
-PpmDrawer::PpmDrawer(std::string fileName, int nX, int nY)
+PpmDrawer::PpmDrawer(std::string fileName, int nX, int nY, float gamma = 2.)
 {
 	this->fileName = std::move(fileName);
 	this->nX = nX;
 	this->nY = nY;
+	this->gamma = gamma;
 }
 
 void PpmDrawer::write(std::vector<Vec3> &points)
@@ -30,7 +32,7 @@ void PpmDrawer::write(std::vector<Vec3> &points)
 	fOut << 255 << std::endl;
 	for (Vec3 &point : points)
 	{
-		fOut << point.toColor(2) << std::endl;
+		fOut << point.toColor(gamma) << std::endl;
 	}
 
 	fOut.close();

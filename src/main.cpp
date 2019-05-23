@@ -82,6 +82,6 @@ int main()
 	cout << "Time: " << duration << "s" << endl;
 
 	string fileName = "10_glass_bubble_lambertian_and_metal_spheres.ppm";
-	PpmDrawer drawer = PpmDrawer(imagesPath + fileName, nx, ny);
+	PpmDrawer drawer = PpmDrawer(imagesPath + fileName, nx, ny, 2);
 	drawer.write(points);
 }
