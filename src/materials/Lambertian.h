@@ -13,7 +13,7 @@ public:
 
 	bool scatter(const Ray& ray, const hitRecord& hit, Vec3& attenuation, Ray& scattered) const override {
 		(void)ray;
-		Vec3 target = hit.p + hit.normal + randomInUnitSphere();
+		Vec3 target = hit.p + hit.normal + utils::randomInUnitSphere();
 		scattered = Ray(hit.p, target - hit.p);
 		attenuation = this->albedo;
 		return true;

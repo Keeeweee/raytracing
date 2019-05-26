@@ -10,27 +10,32 @@ public:
 	Vec3 lowerLeftCorner{};
 	Vec3 horizontal{};
 	Vec3 vertical{};
+	Vec3 u, v, w;
+	float lensRadius;
 
-	Camera(Vec3 lookFrom, Vec3 lookAt, Vec3 vUp, float vFov, float aspect)
+	Camera(Vec3 lookFrom, Vec3 lookAt, Vec3 vUp, float vFov, float aspect, float aperture, float focusDistance)
 	{
-		Vec3 u{}, v{}, w{};
+		this->lensRadius = aperture / 2.;
 		float theta = vFov * 3.14159265358979 / 180;
 		float halfHeight = std::tan(theta / 2.);
 		float halfWidth = aspect * halfHeight;
 
 		this->origin = lookFrom;
-		w = Vec3::unitVector(lookFrom - lookAt);
-		u = Vec3::unitVector(cross(vUp, w));
-		v = cross(w, u);
+		this->w = Vec3::unitVector(lookFrom - lookAt);
+		this->u = Vec3::unitVector(cross(vUp, w));
+		this->v = cross(w, u);
 
-		this->lowerLeftCorner = this->origin - halfWidth * u - halfHeight * v - w;
+		this->lowerLeftCorner = this->origin - focusDistance * (halfWidth * u + halfHeight * v + w);
 
-		this->horizontal = 2. * halfWidth * u;
-		this->vertical = 2. * halfHeight * v;
+		this->horizontal = 2. * focusDistance * halfWidth * u;
+		this->vertical = 2. * focusDistance * halfHeight * v;
 	}
 
-	Ray getRay(float u, float v)
+	Ray getRay(float s, float t)
 	{
-		return Ray(origin, lowerLeftCorner + u * horizontal + v * vertical - this->origin);
+		Vec3 rd = this->lensRadius * utils::randomInUnitDisk();
+		Vec3 offset = this->u * rd.x() + this->v * rd.y();
+		return Ray( this->origin + offset,
+					this->lowerLeftCorner + s * this->horizontal + t * this->vertical - this->origin - offset);
 	}
 };

@@ -49,7 +49,7 @@ public:
 			reflectProb = 1.;
 		}
 
-		if (random() < reflectProb)
+		if (utils::random() < reflectProb)
 		{
 			scattered = Ray(hit.p, reflect(ray.direction, hit.normal));
 		}

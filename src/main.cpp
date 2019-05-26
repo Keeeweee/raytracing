@@ -16,14 +16,9 @@
 
 using namespace std;
 
-int main()
+
+void create(ShapeList &world)
 {
-	string imagesPath = "../images/";
-
-	vector<Vec3> points = vector<Vec3>();
-
-	ShapeList world;
-
 	world.append(new Sphere(Vec3(0., 0., -1.), 0.5, new Lambertian(Vec3(0.1, 0.2, 0.5))));
 
 	world.append(new Sphere(Vec3(0., -100.5, -1.), 100, new Lambertian(Vec3(0.8, 0.8, 0.0))));
@@ -32,6 +27,18 @@ int main()
 
 	world.append(new Sphere(Vec3(-1., 0., -1.), 0.5, new Dielectric(1.5)));
 	world.append(new Sphere(Vec3(-1., 0., -1.), -0.45, new Dielectric(1.5)));
+}
+
+int main()
+{
+	string imagesPath = "../images/";
+
+	vector<Vec3> points = vector<Vec3>();
+
+	ShapeList world;
+
+	create(world);
+
 
 	float t = 20.;
 	float k = 5.01083 * (world.list.size() - 1);
@@ -56,20 +63,26 @@ int main()
 	int count = 0;
 	for (int j = ny - 1; j >= 0; j--)
 	{
-		cout << ((float)count*100) / ny << '%' << '\r';
+		cout << ((float)count*100) / ny << '%' << '\n';
 		count++;
 		for (int i = 0; i < nx; i++)
 		{
 			Vec3 color(0., 0., 0);
-			Camera camera(  Vec3(-2., 2., 1.),
-							Vec3(0., 0., -1),
+			Vec3 lookFrom(3., 3., 2.);
+			Vec3 lookAt(0., 0., -1.);
+			float distToFocus = (lookFrom - lookAt).length();
+			float aperture = 2.;
+			Camera camera(  lookFrom,
+							lookAt,
 							Vec3(0., 1., 0.),
-							90,
-							float(nx) / float(ny));
+							20,
+							float(nx) / float(ny),
+							aperture,
+							distToFocus);
 			for (int s = 0; s < ns; ++s)
 			{
-				float u = float(i + random()) / float(nx);
-				float v = float(j + random()) / float(ny);
+				float u = float(i + utils::random()) / float(nx);
+				float v = float(j + utils::random()) / float(ny);
 
 				Ray ray = camera.getRay(u, v);
 
@@ -85,7 +98,7 @@ int main()
 
 	cout << "Time: " << duration << "s" << endl;
 
-	string fileName = "10_glass_bubble_lambertian_and_metal_spheres.ppm";
+	string fileName = "11_spheres_with_focus_distance.ppm";
 	PpmDrawer drawer = PpmDrawer(imagesPath + fileName, nx, ny, 2);
 	drawer.write(points);
 }
